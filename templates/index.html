@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Segmentation-Based Image Analysis System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <header>
+        <h1>Segmentation-Based Image Analysis System</h1>
+        <p>Semantic understanding of images using deep learning</p>
+    </header>
+
+    <section class="upload-section">
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" accept=".png,.jpg,.jpeg" required>
+            <p class="hint">Supported formats: PNG, JPG, JPEG (Max 200 MB)</p>
+            <button type="submit">Run Segmentation</button>
+        </form>
+    </section>
+
+    {% if segmented %}
+    <section class="results-section">
+
+        <div class="image-card">
+            <h3>Original Image</h3>
+            <img src="{{ original }}">
+        </div>
+
+        <div class="image-card">
+            <h3>Segmented Image</h3>
+            <img src="{{ segmented }}">
+        </div>
+
+        <div class="image-card">
+            <h3>Masked Image</h3>
+            <img src="{{ masked }}">
+        </div>
+
+    </section>
+
+    <section class="confidence">
+        Model Confidence / Accuracy: <strong>{{ accuracy }}%</strong>
+    </section>
+    {% endif %}
+
+    <footer>
+        Developed using Deep Learning & Computer Vision
+    </footer>
+
+</div>
+
+</body>
+</html>

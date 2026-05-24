@@ -1,0 +1,13 @@
+venv/
+_pycache_/
+
+data/
+uploads/
+output_voc/
+medical_data/
+
+*.pth
+*.pt
+*.ckpt
+
+.ipynb_checkpoints/

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Segmentation Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="main-wrapper">
+
+    <!-- TITLE -->
+    <div class="title-section">
+        <h1>Segmentation-Based Image Analysis System</h1>
+        <p>Scene & Medical Segmentation using Deep Learning</p>
+    </div>
+
+    <div class="accent-line"></div>
+
+    <!-- CONTROL PANEL -->
+    <div class="control-panel">
+        <form method="POST" enctype="multipart/form-data" onsubmit="showLoader()">
+            <div class="controls">
+                <select name="model_type" required>
+                    <option value="normal">Scene Segmentation</option>
+                    <option value="medical">Medical Tumor Segmentation</option>
+                </select>
+
+                <input type="file" name="image" accept=".png,.jpg,.jpeg" required>
+
+                <button type="submit">Run Analysis</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- LOADER -->
+    <div id="loader" class="loader-container">
+        <div class="spinner"></div>
+        <div class="loading-text">Processing Image...</div>
+    </div>
+
+    {% if segmented %}
+    <script>
+        // Hide loader when results are ready
+        document.getElementById("loader").style.display = "none";
+    </script>
+
+    <!-- RESULTS -->
+    <div class="results fade-in">
+
+        <div class="card">
+            <div class="card-title">Original</div>
+            <img src="{{ original }}">
+        </div>
+
+        <div class="card">
+            <div class="card-title">Segmentation</div>
+            <img src="{{ segmented }}">
+        </div>
+
+        <div class="card">
+            <div class="card-title">Overlay</div>
+            <img src="{{ masked }}">
+        </div>
+
+    </div>
+
+    <!-- CONFIDENCE -->
+    {% if accuracy %}
+    <div class="confidence fade-in">
+        Confidence Score: {{ accuracy }}%
+    </div>
+    {% endif %}
+
+    {% if message %}
+    <div class="confidence fade-in">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <!-- CONFUSION MATRIX -->
+    {% if cm %}
+    <div class="cm-section fade-in">
+        <div class="card-title">Confusion Matrix</div>
+        <img src="{{ cm }}">
+    </div>
+    {% endif %}
+
+    {% endif %}
+
+</div>
+
+<script>
+function showLoader() {
+    document.getElementById("loader").style.display = "flex";
+}
+</script>
+
+</body>
+</html>
